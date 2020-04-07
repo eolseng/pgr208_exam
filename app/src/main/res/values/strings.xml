@@ -1,0 +1,15 @@
+<resources>
+    <!-- General -->
+    <string name="candidate_number">457</string>
+    <string name="app_name">SailAway</string>
+
+    <!-- Splash -->
+
+
+    <!-- Placeholder -->
+    <string name="loading">Loading…</string>
+    <string name="lorem_mini">Aenean eu diam</string>
+    <string name="lorem_short">Donec pellentesque lorem</string>
+    <string name="lorm_medium">Quisque tellus turpis, hendrerit non ante nec, congue malesuada magna.</string>
+    <string name="lorem_long" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis bibendum ante congue fermentum. Integer ut elit dolor. Curabitur viverra mollis risus. Mauris molestie est sit amet volutpat sagittis. Sed sit amet urna sit amet mi ullamcorper vehicula. Donec nec eros porttitor, volutpat sem at, pharetra ligula. Pellentesque luctus fermentum ligula sed sagittis. Vestibulum quis sapien interdum, rutrum lorem sed, finibus nulla. Nullam iaculis semper ipsum quis posuere. Aenean eu diam eu ipsum luctus tempor. Etiam semper ut lacus nec rhoncus.</string>
+</resources>
