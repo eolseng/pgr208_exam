@@ -1,9 +1,10 @@
 <resources>
     <!-- General -->
-    <string name="candidate_number">457</string>
     <string name="app_name">SailAway</string>
+    <string name="candidate_number">457</string>
 
     <!-- Splash -->
+    <string name="created_by">Candidate 457</string>
 
 
     <!-- Placeholder -->

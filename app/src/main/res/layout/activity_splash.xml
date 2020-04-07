@@ -7,13 +7,57 @@
     android:layout_height="match_parent"
     tools:context=".SplashActivity">
 
+    <ImageView
+        android:id="@+id/splash_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:src="@drawable/place_placeholder_image"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        />
+
     <TextView
-        android:id="@+id/appName"
-        android:layout_width="wrap_content"
+        android:id="@+id/splash_app_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="#FFF"
+        android:textSize="60sp"
+
+        android:shadowColor="#000000"
+        android:shadowRadius="20"
+        android:shadowDx="2"
+        android:shadowDy="2"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+    <TextView
+        android:id="@+id/splash_creator_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:text="@string/created_by"
+        android:textAlignment="center"
+        android:textColor="#DDD"
+        android:textSize="18sp"
+
+        android:shadowColor="#80000000"
+        android:shadowRadius="1"
+        android:shadowDx="0"
+        android:shadowDy="0"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

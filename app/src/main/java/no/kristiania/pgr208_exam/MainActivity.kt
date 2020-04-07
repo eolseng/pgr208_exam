@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
 
         // Setup the RecyclerView
         recycler_view.layoutManager = LinearLayoutManager(this)

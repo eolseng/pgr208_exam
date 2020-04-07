@@ -25,6 +25,7 @@ class PlaceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_place)
+        supportActionBar?.hide()
 
         // TODO: This is some shitty hacky shit
         placeId = intent.extras!!.get("id") as Long
