@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
 
-        android:text="Search for your next destination:"
+        android:text="@string/search_info_text"
         android:textSize="20sp"
 
         app:layout_constraintTop_toTopOf="parent"
@@ -23,6 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
+
+        android:queryHint="Where do you want to go?"
 
         app:layout_constraintTop_toBottomOf="@id/search_info_text"
         android:background="#EEEEEE"

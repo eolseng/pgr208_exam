@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
         refresh_layout.setOnRefreshListener { model.updateFeatures() }
 
         // Setup SearchView with FTS Search
-        search_bar.queryHint = "Search for places..."
         search_bar.setOnQueryTextListener(getQueryTextListener())
     }
 

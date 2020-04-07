@@ -1,6 +1,7 @@
 package no.kristiania.pgr208_exam
 
 import android.app.Application
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -32,6 +33,16 @@ class PlaceActivity : AppCompatActivity() {
         model = ViewModelProvider(this, PlaceViewModelFactory(application, placeId)).get(PlaceViewModel::class.java)
         model.place.observe(this, placeObserver)
         model.updateStatus.observe(this, updateObserver)
+
+        // Setup the Map button
+        location_button.setOnClickListener{
+            val place = model.place.value
+            val mapActivity = Intent(applicationContext, MapsActivity::class.java)
+            mapActivity.putExtra("name", place?.name)
+            mapActivity.putExtra("lat", place?.lat)
+            mapActivity.putExtra("lon", place?.lon)
+            startActivity(mapActivity)
+        }
     }
 
     override fun onDestroy() {
