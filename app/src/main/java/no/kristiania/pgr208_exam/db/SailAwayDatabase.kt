@@ -1,9 +1,7 @@
 package no.kristiania.pgr208_exam.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import kotlinx.coroutines.CoroutineScope
 import no.kristiania.pgr208_exam.entities.Feature
 import no.kristiania.pgr208_exam.entities.Place
@@ -15,6 +13,7 @@ val DATABASE_NAME = "sailaway_database"
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class SailAwayDatabase : RoomDatabase() {
 
     abstract fun featureDao(): FeatureDao
@@ -38,5 +37,16 @@ abstract class SailAwayDatabase : RoomDatabase() {
                 instance
             }
         }
+    }
+}
+
+class Converters {
+    @TypeConverter
+    fun listToString(list: List<Double>) : String {
+        return list.joinToString(" ")
+    }
+    @TypeConverter
+    fun stringToList(string: String): List<Double> {
+        return string.split(" ").map { it.toDouble() }
     }
 }

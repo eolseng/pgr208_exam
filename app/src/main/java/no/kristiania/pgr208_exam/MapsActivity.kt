@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+
     private var placeName: String = ""
     private var placeLat: Double = 0.00
     private var placeLon: Double = 0.00

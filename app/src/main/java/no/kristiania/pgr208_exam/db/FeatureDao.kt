@@ -25,7 +25,6 @@ interface FeatureDao {
         insertAll(features)
     }
 
-    // TODO: Should this be a SUSPEND function?
     @Query("SELECT *, rowid FROM features_table")
     fun getAll(): LiveData<List<Feature>>
 

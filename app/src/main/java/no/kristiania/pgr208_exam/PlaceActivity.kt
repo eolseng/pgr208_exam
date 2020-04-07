@@ -28,7 +28,7 @@ class PlaceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_place)
         supportActionBar?.hide()
 
-        // TODO: This is some shitty hacky shit
+        // TODO: This is using a unclean way of creating the ViewModel to pass the PlaceId in the constructor...
         placeId = intent.extras!!.get("id") as Long
         model = ViewModelProvider(this, PlaceViewModelFactory(application, placeId)).get(PlaceViewModel::class.java)
         model.place.observe(this, placeObserver)
@@ -54,7 +54,6 @@ class PlaceActivity : AppCompatActivity() {
         place?.let {
             place_title.text = place.name
             place_comment.text = place.comments
-
             if (!place.banner.isNullOrBlank()){
                 Picasso.get().load(place.banner).into(place_image)
             }
@@ -89,4 +88,3 @@ class PlaceActivity : AppCompatActivity() {
         }
     }
 }
-

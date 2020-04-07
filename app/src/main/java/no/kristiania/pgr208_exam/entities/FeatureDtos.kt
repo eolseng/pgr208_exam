@@ -11,9 +11,9 @@ data class FeaturesWrapperDto(
 @Entity(tableName = "features_table")
 data class Feature(
     @Embedded
-    val properties: Properties
-//    @Embedded
-//    val geometry: Geometry
+    val properties: Properties,
+    @Embedded
+    val geometry: Geometry?
 )
 
 data class Properties(
@@ -25,6 +25,7 @@ data class Properties(
     val iconId: String
 )
 
+@Entity
 data class Geometry(
     val coordinates: List<Double>
 )
