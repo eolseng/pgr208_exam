@@ -23,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
     private var hasCache: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("SplashActivity", "Activity created")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
@@ -33,13 +34,21 @@ class SplashActivity : AppCompatActivity() {
         model.updateStatus.observe(this, updateObserver)
     }
 
+    override fun onPause() {
+        Log.i("SplashActivity", "Activity paused")
+        super.onPause()
+        splashHandler.removeCallbacksAndMessages(null)
+    }
+
     override fun onDestroy() {
+        Log.i("SplashActivity", "Activity destroyed")
         super.onDestroy()
         // Remove all delayed actions when destroying the SplashActivity
         splashHandler.removeCallbacksAndMessages(null)
     }
 
     private val updateObserver = Observer<UpdateStatus> { status ->
+        Log.d("SplashActivity", "Status updated: $status")
         when (status) {
             UpdateStatus.NOOP -> { }
             UpdateStatus.UPDATING -> { }

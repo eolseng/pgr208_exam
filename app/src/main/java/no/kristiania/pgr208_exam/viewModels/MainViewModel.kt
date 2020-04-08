@@ -17,7 +17,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val updateStatus: LiveData<UpdateStatus>
 
     init {
-        val db = SailAwayDatabase.getDatabase(application.applicationContext, viewModelScope)
+        val db = SailAwayDatabase.getDatabase(application.applicationContext)
         val featureDao = db.featureDao()
         featureRepository = FeatureRepository(application.applicationContext, featureDao)
         updateStatus = featureRepository.updateStatus
@@ -30,7 +30,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun updateFeatures() =
-        viewModelScope.launch { featureRepository.updateFeatures() }
+    fun updateFeatures() = viewModelScope.launch { featureRepository.updateFeatures() }
 
 }

@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
     private val queryHandler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("MainActivity", "Activity created")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
@@ -44,8 +45,14 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
     }
 
     override fun onPause() {
+        Log.i("MainActivity", "Activity paused")
         super.onPause()
         queryHandler.removeCallbacksAndMessages(null)
+    }
+
+    override fun onDestroy() {
+        Log.i("MainActivity", "Activity destroyed")
+        super.onDestroy()
     }
 
     override fun onFeatureClicked(feature: Feature) {
@@ -97,7 +104,6 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
                 queryHandler.postDelayed({ model.filterText.value = query }, 300L)
                 return false
             }
-
             override fun onQueryTextSubmit(query: String?): Boolean {
                 queryHandler.removeCallbacksAndMessages(null)
                 model.filterText.value = query

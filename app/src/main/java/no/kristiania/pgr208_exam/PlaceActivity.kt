@@ -24,6 +24,8 @@ class PlaceActivity : AppCompatActivity() {
     private val updateHandler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("PlaceActivity", "Activity created")
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_place)
         supportActionBar?.hide()
@@ -45,7 +47,13 @@ class PlaceActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        Log.i("PlaceActivity", "Activity paused")
+        super.onPause()
+    }
+
     override fun onDestroy() {
+        Log.i("PlaceActivity", "Activity destroyed")
         super.onDestroy()
         updateHandler.removeCallbacksAndMessages(null)
     }
@@ -71,12 +79,14 @@ class PlaceActivity : AppCompatActivity() {
     }
 
     private fun handleError() {
+        Log.i("PlaceActivity", "handleError started")
         val message = if (model.place.value == null) {
             "Could not connect to the server.\nPlease try again later"
         } else {
             "Could not connect to the server.\nShowing cached data"
         }
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        Log.i("PlaceActivity", "handleError finished")
     }
 
     inner class PlaceViewModelFactory(

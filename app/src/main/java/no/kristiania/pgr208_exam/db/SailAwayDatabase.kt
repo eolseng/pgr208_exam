@@ -24,8 +24,7 @@ abstract class SailAwayDatabase : RoomDatabase() {
         private var INSTANCE: SailAwayDatabase? = null
 
         fun getDatabase(
-            context: Context,
-            scope: CoroutineScope
+            context: Context
         ): SailAwayDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(

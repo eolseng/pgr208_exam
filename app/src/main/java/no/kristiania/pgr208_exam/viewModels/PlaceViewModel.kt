@@ -20,7 +20,7 @@ class PlaceViewModel(
     val updateStatus: LiveData<UpdateStatus>
 
     init {
-        val db = SailAwayDatabase.getDatabase(application.applicationContext, viewModelScope)
+        val db = SailAwayDatabase.getDatabase(application.applicationContext)
         val placeDao = db.placeDao()
         placeRepository = PlaceRepository(application.applicationContext, placeDao)
         updateStatus = placeRepository.updateStatus

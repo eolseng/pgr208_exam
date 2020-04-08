@@ -1,6 +1,7 @@
 package no.kristiania.pgr208_exam.viewModels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +20,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
     val updateStatus: LiveData<UpdateStatus>
 
     init {
-        val db = SailAwayDatabase.getDatabase(application.applicationContext, viewModelScope)
+        val db = SailAwayDatabase.getDatabase(application.applicationContext)
         val featureDao = db.featureDao()
         featureRepository = FeatureRepository(application.applicationContext, featureDao)
         features = featureRepository.allFeatures
