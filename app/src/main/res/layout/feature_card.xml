@@ -8,7 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:elevation="12dp"
-    app:cardBackgroundColor="#FFF"
+    app:cardBackgroundColor="@color/white"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="12dp">
 
@@ -42,7 +42,7 @@
             android:layout_centerVertical="true"
 
             android:src="@drawable/ic_place_black_30dp"
-            android:background="#FFF"
+            android:background="#00FFFFFF"
             android:foreground="?android:attr/selectableItemBackground"
             />
     </RelativeLayout>
