@@ -29,6 +29,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         placeName = intent.extras?.get("name") as String
         placeLat = intent.extras?.get("lat") as Double
         placeLon = intent.extras?.get("lon") as Double
+
+        supportActionBar?.title = placeName
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

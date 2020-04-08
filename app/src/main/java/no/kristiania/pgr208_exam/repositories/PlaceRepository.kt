@@ -27,8 +27,10 @@ class PlaceRepository(
     }
 
     suspend fun updatePlace(id: Long) {
+
         Log.i("PlaceRepository", "Attempting to update place with ID $id")
         _updateStatus.value = UpdateStatus.UPDATING
+
         if (Utils.isOnline(context)) {
             try {
                 val wrapper = service.getById(id)
@@ -38,12 +40,12 @@ class PlaceRepository(
                 _updateStatus.value = UpdateStatus.SUCCESS
                 Log.i("PlaceRepository", "Successfully updated place with ID $id")
             } catch (e: Exception) {
-                Log.e("PlaceRepository", "Failed to update place: $e")
                 _updateStatus.value = UpdateStatus.ERROR
+                Log.w("PlaceRepository", "Failed to update place: $e")
             }
         } else {
-            Log.e("PlaceRepository", "Failed to update place: No internet connection")
             _updateStatus.value = UpdateStatus.ERROR
+            Log.w("PlaceRepository", "Failed to update place: No internet connection")
         }
     }
 

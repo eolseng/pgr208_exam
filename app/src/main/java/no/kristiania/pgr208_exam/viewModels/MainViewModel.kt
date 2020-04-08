@@ -14,13 +14,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val features: LiveData<List<Feature>>
     val filterText: MutableLiveData<String> = MutableLiveData("")
 
-    private val _updateStatus: MutableLiveData<UpdateStatus> = MutableLiveData(UpdateStatus.NOOP)
-    val updateStatus: LiveData<UpdateStatus> = _updateStatus
+    val updateStatus: LiveData<UpdateStatus>
 
     init {
         val db = SailAwayDatabase.getDatabase(application.applicationContext, viewModelScope)
         val featureDao = db.featureDao()
         featureRepository = FeatureRepository(application.applicationContext, featureDao)
+        updateStatus = featureRepository.updateStatus
         features = Transformations.switchMap(filterText) { query ->
             if (query.isNullOrBlank()) {
                 featureRepository.allFeatures
@@ -31,9 +31,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun updateFeatures() =
-        viewModelScope.launch {
-            _updateStatus.value = UpdateStatus.UPDATING
-            _updateStatus.value = featureRepository.updateFeatures()
-        }
+        viewModelScope.launch { featureRepository.updateFeatures() }
 
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.SystemClock
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import no.kristiania.pgr208_exam.db.FeatureDao
@@ -19,34 +20,40 @@ class FeatureRepository(
     private val context: Context,
     private val featureDao: FeatureDao
 ) {
+
     private val service: NoForeignLandService = getService()
     val allFeatures: LiveData<List<Feature>> = featureDao.getAll()
 
-    suspend fun updateFeatures(): UpdateStatus {
+    private val _updateStatus: MutableLiveData<UpdateStatus> = MutableLiveData(UpdateStatus.NOOP)
+    val updateStatus: LiveData<UpdateStatus> = _updateStatus
 
-        lateinit var status: UpdateStatus
+    suspend fun updateFeatures() {
+
+        Log.i("FeatureRepository", "Attempting to update Features")
+        _updateStatus.value = UpdateStatus.UPDATING
         val startTime = SystemClock.uptimeMillis()
 
         if (Utils.isOnline(context)) {
-            withContext(Dispatchers.IO) {
-                status = try {
-                    val wrapper = service.getAll()
-                    val features = wrapper.features
-                    featureDao.updateFeatures(features)
-                    Log.i("FeatureRepository", "Updated Features in ${SystemClock.uptimeMillis() - startTime}ms")
-                    UpdateStatus.SUCCESS
-                } catch (e: Exception) {
-                    Log.e("FeatureRepository", "Failed to update features: $e")
-                    UpdateStatus.ERROR
-                }
+            try {
+                val wrapper = service.getAll()
+                val features = wrapper.features
+                featureDao.updateFeatures(features)
+                Log.i(
+                    "FeatureRepository",
+                    "Updated Features in ${SystemClock.uptimeMillis() - startTime}ms"
+                )
+                _updateStatus.value = UpdateStatus.SUCCESS
+            } catch (e: Exception) {
+                Log.w("FeatureRepository", "Failed to update features: $e")
+                _updateStatus.value = UpdateStatus.ERROR
             }
         } else {
-            status = UpdateStatus.ERROR
+            Log.w("FeatureRepository", "Failed to update features: No internet connection")
+            _updateStatus.value = UpdateStatus.ERROR
         }
-        return status
     }
 
-    fun getFilteredPosts(filter: String): LiveData<List<Feature>>{
+    fun getFilteredPosts(filter: String): LiveData<List<Feature>> {
         return featureDao.searchFeatures("$filter*")
     }
 

@@ -16,20 +16,19 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
     private val featureRepository: FeatureRepository
     val features: LiveData<List<Feature>>
 
-    private val _updateStatus: MutableLiveData<UpdateStatus> = MutableLiveData(UpdateStatus.NOOP)
-    val updateStatus: LiveData<UpdateStatus> = _updateStatus
+    val updateStatus: LiveData<UpdateStatus>
 
     init {
         val db = SailAwayDatabase.getDatabase(application.applicationContext, viewModelScope)
         val featureDao = db.featureDao()
         featureRepository = FeatureRepository(application.applicationContext, featureDao)
         features = featureRepository.allFeatures
+        updateStatus = featureRepository.updateStatus
         updateFeatures()
     }
 
     private fun updateFeatures() =
         viewModelScope.launch {
-            _updateStatus.value = UpdateStatus.UPDATING
-            _updateStatus.value = featureRepository.updateFeatures()
+            featureRepository.updateFeatures()
         }
 }

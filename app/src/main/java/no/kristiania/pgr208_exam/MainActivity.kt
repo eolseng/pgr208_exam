@@ -55,14 +55,11 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
     }
 
     override fun onLocationClicked(feature: Feature) {
-
         val mapActivity = Intent(applicationContext, MapsActivity::class.java)
         mapActivity.putExtra("name", feature.properties.name)
         mapActivity.putExtra("lat", feature.geometry?.coordinates?.get(1))
         mapActivity.putExtra("lon", feature.geometry?.coordinates?.get(0))
         startActivity(mapActivity)
-
-        Toast.makeText(this, "Clicked on ${feature.properties.name} Location", Toast.LENGTH_SHORT).show()
     }
 
     private val featuresObserver = Observer<List<Feature>> { features ->
@@ -71,8 +68,7 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
 
     private val updateObserver = Observer<UpdateStatus> { status ->
         when (status) {
-            UpdateStatus.NOOP -> { /*No operation */
-            }
+            UpdateStatus.NOOP -> {}
             UpdateStatus.UPDATING -> handleUpdating()
             UpdateStatus.SUCCESS -> handleSuccess()
             UpdateStatus.ERROR -> handleError()

@@ -16,7 +16,6 @@ import no.kristiania.pgr208_exam.viewModels.SplashViewModel
 class SplashActivity : AppCompatActivity() {
 
     private val SPLASH_TIME_MIN = 2000L
-    private val SPLASH_TIME_CACHE = 4000L
     private val startTime = SystemClock.uptimeMillis()
 
     private lateinit var model: SplashViewModel
@@ -55,7 +54,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun handleError() {
-        val delay = SPLASH_TIME_CACHE - timeSinceStart()
+        val delay = SPLASH_TIME_MIN - timeSinceStart()
         splashHandler.postDelayed(_handleError, delay)
     }
 
