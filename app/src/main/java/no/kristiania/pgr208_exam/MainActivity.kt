@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
     }
 
     private fun handleUpdating() {
-        Toast.makeText(this, "Attempting to update places", Toast.LENGTH_SHORT).show()
+        // User gets notified with spinner, no need for Toast here.
     }
 
     private fun handleSuccess() {
@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
                 queryHandler.postDelayed({ model.filterText.value = query }, 300L)
                 return false
             }
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 queryHandler.removeCallbacksAndMessages(null)
                 model.filterText.value = query

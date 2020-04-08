@@ -22,7 +22,7 @@ data class Place (
     @SerializedName("mapboxIcon")
     val iconId: String?,
     val name: String,
-    val comments: String?,
+    var comments: String?,
     val countryCode: String?,
     val lat: Double,
     val lon: Double,

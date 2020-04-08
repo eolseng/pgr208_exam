@@ -2,12 +2,11 @@ package no.kristiania.pgr208_exam
 
 import android.app.Application
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.LiveData
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -25,19 +24,21 @@ class PlaceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i("PlaceActivity", "Activity created")
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_place)
         supportActionBar?.hide()
 
         // TODO: This is using a unclean way of creating the ViewModel to pass the PlaceId in the constructor...
         placeId = intent.extras!!.get("id") as Long
-        model = ViewModelProvider(this, PlaceViewModelFactory(application, placeId)).get(PlaceViewModel::class.java)
+        model = ViewModelProvider(
+            this,
+            PlaceViewModelFactory(application, placeId)
+        ).get(PlaceViewModel::class.java)
         model.place.observe(this, placeObserver)
         model.updateStatus.observe(this, updateObserver)
 
         // Setup the Map button
-        location_button.setOnClickListener{
+        location_button.setOnClickListener {
             val place = model.place.value
             val mapActivity = Intent(applicationContext, MapsActivity::class.java)
             mapActivity.putExtra("name", place?.name)
@@ -58,11 +59,11 @@ class PlaceActivity : AppCompatActivity() {
         updateHandler.removeCallbacksAndMessages(null)
     }
 
-    private val placeObserver = Observer<Place> {place ->
+    private val placeObserver = Observer<Place> { place ->
         place?.let {
             place_title.text = place.name
             place_comment.text = place.comments
-            if (!place.banner.isNullOrBlank()){
+            if (!place.banner.isNullOrBlank()) {
                 Picasso.get().load(place.banner).into(place_image)
             }
         }
@@ -73,7 +74,7 @@ class PlaceActivity : AppCompatActivity() {
             UpdateStatus.NOOP -> {}
             UpdateStatus.UPDATING -> {}
             UpdateStatus.SUCCESS -> {}
-            UpdateStatus.ERROR -> updateHandler.postDelayed({handleError()}, 500L)
+            UpdateStatus.ERROR -> updateHandler.postDelayed({ handleError() }, 500L)
             else -> Log.e("UpdateObserver", "Unknown status: $status")
         }
     }
@@ -91,7 +92,8 @@ class PlaceActivity : AppCompatActivity() {
 
     inner class PlaceViewModelFactory(
         private val application: Application,
-        private val placeId: Long) :
+        private val placeId: Long
+    ) :
         ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return PlaceViewModel(application, placeId) as T
