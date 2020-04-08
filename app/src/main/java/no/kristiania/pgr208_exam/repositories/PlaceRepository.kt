@@ -36,7 +36,7 @@ class PlaceRepository(
                 val wrapper = service.getById(id)
                 val place = wrapper.place
                 // Comments often include HTML-tags, so this parses this to a clean String
-                place.comments = android.text.Html.fromHtml(place.comments).toString()
+                place.comments = android.text.Html.fromHtml(place.comments).toString().trim()
                 placeDao.insert(place)
                 _updateStatus.value = UpdateStatus.SUCCESS
                 Log.i("PlaceRepository", "Successfully updated place with ID $id")

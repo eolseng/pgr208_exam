@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     tools:context=".MainActivity"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
     >
 
     <TextView
@@ -17,7 +17,7 @@
 
         android:text="@string/search_info_text"
         android:textSize="20sp"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/offwhite"
 
         app:layout_constraintTop_toTopOf="parent"
         />

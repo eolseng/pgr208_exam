@@ -28,7 +28,6 @@ class PlaceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_place)
         supportActionBar?.hide()
 
-        // TODO: This is using a unclean way of creating the ViewModel to pass the PlaceId in the constructor...
         placeId = intent.extras!!.get("id") as Long
         model = ViewModelProvider(
             this,
@@ -71,9 +70,12 @@ class PlaceActivity : AppCompatActivity() {
 
     private val updateObserver = Observer<UpdateStatus> { status ->
         when (status) {
-            UpdateStatus.NOOP -> {}
-            UpdateStatus.UPDATING -> {}
-            UpdateStatus.SUCCESS -> {}
+            UpdateStatus.NOOP -> {
+            }
+            UpdateStatus.UPDATING -> {
+            }
+            UpdateStatus.SUCCESS -> {
+            }
             UpdateStatus.ERROR -> updateHandler.postDelayed({ handleError() }, 500L)
             else -> Log.e("UpdateObserver", "Unknown status: $status")
         }
@@ -90,11 +92,11 @@ class PlaceActivity : AppCompatActivity() {
         Log.i("PlaceActivity", "handleError finished")
     }
 
+    // This seems like a hacky way to pass the placeId to the ViewModel constructor.
     inner class PlaceViewModelFactory(
         private val application: Application,
         private val placeId: Long
-    ) :
-        ViewModelProvider.NewInstanceFactory() {
+    ) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return PlaceViewModel(application, placeId) as T
         }
