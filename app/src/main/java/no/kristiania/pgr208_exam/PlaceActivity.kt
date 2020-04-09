@@ -36,6 +36,9 @@ class PlaceActivity : AppCompatActivity() {
         model.place.observe(this, placeObserver)
         model.updateStatus.observe(this, updateObserver)
 
+        // Setup Back button
+        back_button.setOnClickListener { finish() }
+
         // Setup the Map button
         location_button.setOnClickListener {
             val place = model.place.value

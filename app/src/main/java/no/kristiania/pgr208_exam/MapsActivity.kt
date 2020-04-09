@@ -2,6 +2,7 @@ package no.kristiania.pgr208_exam
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -26,6 +27,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         placeName = intent.extras?.get("name") as String
         placeLat = intent.extras?.get("lat") as Double
         placeLon = intent.extras?.get("lon") as Double
@@ -40,5 +43,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val coordinates = LatLng(placeLat, placeLon)
         mMap.addMarker(MarkerOptions().position(coordinates).title(placeName))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 12f))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
