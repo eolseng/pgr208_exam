@@ -2,7 +2,6 @@ package no.kristiania.pgr208_exam.db
 
 import android.content.Context
 import androidx.room.*
-import kotlinx.coroutines.CoroutineScope
 import no.kristiania.pgr208_exam.entities.Feature
 import no.kristiania.pgr208_exam.entities.Place
 

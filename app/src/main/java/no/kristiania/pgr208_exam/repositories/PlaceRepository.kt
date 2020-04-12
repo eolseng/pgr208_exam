@@ -11,7 +11,6 @@ import no.kristiania.pgr208_exam.utils.UpdateStatus
 import no.kristiania.pgr208_exam.utils.Utils
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 
 class PlaceRepository(
     private val context: Context,

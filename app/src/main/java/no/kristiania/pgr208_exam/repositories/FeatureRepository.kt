@@ -5,8 +5,6 @@ import android.os.SystemClock
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import no.kristiania.pgr208_exam.db.FeatureDao
 import no.kristiania.pgr208_exam.entities.Feature
 import no.kristiania.pgr208_exam.services.NoForeignLandService
@@ -14,7 +12,6 @@ import no.kristiania.pgr208_exam.utils.UpdateStatus
 import no.kristiania.pgr208_exam.utils.Utils
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 
 class FeatureRepository(
     private val context: Context,
@@ -40,7 +37,7 @@ class FeatureRepository(
                 featureDao.updateFeatures(features)
                 Log.i(
                     "FeatureRepository",
-                    "Updated Features in ${SystemClock.uptimeMillis() - startTime}ms"
+                    "Updated ${features.size} Features in ${SystemClock.uptimeMillis() - startTime}ms"
                 )
                 _updateStatus.value = UpdateStatus.SUCCESS
             } catch (e: Exception) {

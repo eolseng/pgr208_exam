@@ -68,6 +68,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private val _handleError = {
+
         if (hasCache) {
             Toast.makeText(
                 this,

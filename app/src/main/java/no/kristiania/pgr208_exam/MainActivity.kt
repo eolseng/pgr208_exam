@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
     }
 
     private val featuresObserver = Observer<List<Feature>> { features ->
+        // TODO: Do scroll to top here?
         features?.let { featuresAdapter.setFeatures(features) }
     }
 
@@ -100,8 +101,12 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
     private fun getQueryTextListener(): SearchView.OnQueryTextListener {
         return object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(query: String?): Boolean {
+                val applyFilter = {
+                    recycler_view.scrollToPosition(0)
+                    model.filterText.value = query
+                }
                 queryHandler.removeCallbacksAndMessages(null)
-                queryHandler.postDelayed({ model.filterText.value = query }, 300L)
+                queryHandler.postDelayed(applyFilter, 200L)
                 return false
             }
 

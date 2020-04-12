@@ -44,6 +44,6 @@
 
             android:foreground="?android:attr/selectableItemBackground"
             android:padding="8dp"
-            android:src="@drawable/ic_place_white_30dp" />
+            android:src="@drawable/ic_place_black_30dp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
