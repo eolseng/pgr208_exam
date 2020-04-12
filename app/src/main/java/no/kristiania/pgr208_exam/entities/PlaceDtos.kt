@@ -12,6 +12,7 @@ data class PlaceWrapper(
 @Fts4
 @Entity(tableName = "places_table")
 data class Place (
+
     @PrimaryKey
     @ColumnInfo(name = "rowid")
     val id: Long,
@@ -19,5 +20,8 @@ data class Place (
     var comments: String?,
     val banner: String?,
     val lat: Double,
-    val lon: Double
+    val lon: Double,
+    @ColumnInfo(name = "created_at")
+    val createdAt: Long?
+
 )

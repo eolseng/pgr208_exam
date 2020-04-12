@@ -29,9 +29,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        placeName = intent.extras?.get("name") as String
-        placeLat = intent.extras?.get("lat") as Double
-        placeLon = intent.extras?.get("lon") as Double
+        placeName = intent.extras?.get(EXTRA_NAME) as String
+        placeLat = intent.extras?.get(EXTRA_LAT) as Double
+        placeLon = intent.extras?.get(EXTRA_LON) as Double
 
         supportActionBar?.title = placeName
     }
@@ -53,5 +53,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        const val EXTRA_NAME: String  = "no.kristiania.pgr208_exam.entities.Place.name"
+        const val EXTRA_LAT: String  = "no.kristiania.pgr208_exam.entities.Place.lat"
+        const val EXTRA_LON: String  = "no.kristiania.pgr208_exam.entities.Place.lon"
     }
 }

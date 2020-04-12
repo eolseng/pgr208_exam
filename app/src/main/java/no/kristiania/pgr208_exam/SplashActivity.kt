@@ -71,10 +71,10 @@ class SplashActivity : AppCompatActivity() {
 
         if (hasCache) {
             Toast.makeText(
-                this,
-                "Unable to retrieve new data.\n" +
-                        "Showing cached data",
-                Toast.LENGTH_LONG
+                    this,
+            "Unable to retrieve new data.\n" +
+                    "Showing cached data",
+            Toast.LENGTH_LONG
             ).show()
             handleSuccess()
         } else {

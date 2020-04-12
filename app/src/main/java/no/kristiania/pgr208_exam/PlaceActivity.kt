@@ -28,7 +28,7 @@ class PlaceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_place)
         supportActionBar?.hide()
 
-        placeId = intent.extras!!.get("id") as Long
+        placeId = intent.extras!!.get(EXTRA_ID) as Long
         model = ViewModelProvider(
             this,
             PlaceViewModelFactory(application, placeId)
@@ -43,9 +43,9 @@ class PlaceActivity : AppCompatActivity() {
         location_button.setOnClickListener {
             val place = model.place.value
             val mapActivity = Intent(applicationContext, MapsActivity::class.java)
-            mapActivity.putExtra("name", place?.name)
-            mapActivity.putExtra("lat", place?.lat)
-            mapActivity.putExtra("lon", place?.lon)
+            mapActivity.putExtra(MapsActivity.EXTRA_NAME, place?.name)
+            mapActivity.putExtra(MapsActivity.EXTRA_LAT, place?.lat)
+            mapActivity.putExtra(MapsActivity.EXTRA_LON, place?.lon)
             startActivity(mapActivity)
         }
     }
@@ -103,5 +103,9 @@ class PlaceActivity : AppCompatActivity() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return PlaceViewModel(application, placeId) as T
         }
+    }
+
+    companion object {
+        const val EXTRA_ID: String  = "no.kristiania.pgr208_exam.entities.Place.id"
     }
 }

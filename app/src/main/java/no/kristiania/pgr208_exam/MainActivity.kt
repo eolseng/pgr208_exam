@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
         model.features.observe(this, featuresObserver)
         model.updateStatus.observe(this, updateObserver)
 
-        // Setup RecyclerLayout
+        // Setup RefreshLayout
         refresh_layout.setOnRefreshListener { model.updateFeatures() }
 
         // Setup SearchView with FTS Search
@@ -57,21 +57,23 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
 
     override fun onFeatureClicked(feature: Feature) {
         val placeActivity = Intent(applicationContext, PlaceActivity::class.java)
-        placeActivity.putExtra("id", feature.properties.id)
+        placeActivity.putExtra(PlaceActivity.EXTRA_ID, feature.properties.id)
         startActivity(placeActivity)
     }
 
     override fun onLocationClicked(feature: Feature) {
         val mapActivity = Intent(applicationContext, MapsActivity::class.java)
-        mapActivity.putExtra("name", feature.properties.name)
-        mapActivity.putExtra("lat", feature.geometry?.coordinates?.get(1))
-        mapActivity.putExtra("lon", feature.geometry?.coordinates?.get(0))
+        mapActivity.putExtra(MapsActivity.EXTRA_NAME, feature.properties.name)
+        mapActivity.putExtra(MapsActivity.EXTRA_LAT, feature.geometry?.coordinates?.get(1))
+        mapActivity.putExtra(MapsActivity.EXTRA_LON, feature.geometry?.coordinates?.get(0))
         startActivity(mapActivity)
     }
 
     private val featuresObserver = Observer<List<Feature>> { features ->
-        // TODO: Do scroll to top here?
-        features?.let { featuresAdapter.setFeatures(features) }
+        features?.let {
+            featuresAdapter.setFeatures(features)
+            recycler_view.scrollToPosition(0)
+        }
     }
 
     private val updateObserver = Observer<UpdateStatus> { status ->
@@ -101,12 +103,8 @@ class MainActivity : AppCompatActivity(), FeaturesAdapter.OnFeatureClickListener
     private fun getQueryTextListener(): SearchView.OnQueryTextListener {
         return object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(query: String?): Boolean {
-                val applyFilter = {
-                    recycler_view.scrollToPosition(0)
-                    model.filterText.value = query
-                }
                 queryHandler.removeCallbacksAndMessages(null)
-                queryHandler.postDelayed(applyFilter, 200L)
+                queryHandler.postDelayed({model.filterText.value = query}, 300L)
                 return false
             }
 

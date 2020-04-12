@@ -15,4 +15,5 @@ interface PlaceDao {
 
     @Query("SELECT *, rowid FROM places_table WHERE rowid = :id")
     fun getById(id: Long): LiveData<Place>
+
 }

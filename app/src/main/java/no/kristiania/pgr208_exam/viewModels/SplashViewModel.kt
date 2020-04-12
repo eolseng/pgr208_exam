@@ -14,7 +14,6 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
 
     private val featureRepository: FeatureRepository
     val features: LiveData<List<Feature>>
-
     val updateStatus: LiveData<UpdateStatus>
 
     init {
