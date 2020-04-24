@@ -1,6 +1,7 @@
 package no.kristiania.pgr208_exam.db
 
 import android.content.Context
+import android.util.Log
 import androidx.room.*
 import no.kristiania.pgr208_exam.entities.Feature
 import no.kristiania.pgr208_exam.entities.Place
@@ -26,6 +27,7 @@ abstract class SailAwayDatabase : RoomDatabase() {
             context: Context
         ): SailAwayDatabase {
             return INSTANCE ?: synchronized(this) {
+                Log.i("SailAwayDatabase", "Database created")
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     SailAwayDatabase::class.java,
